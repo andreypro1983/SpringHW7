@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+<div th:switch="${users}">
+    <h2 th:case="null">Пользователи не найдены</h2>
+    <div th:case="*">
+        <h2>Пользователи</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Имя пользователя</th>
+                <th>Возраст</th>
+                <th>Город проживания</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.age}"></td>
+                <td th:text="${user.city}"></td>
+                <td><a th:href="@{update/{id}(id=${user.id})}">Редактировать</a></td>
+                <td><a th:href="@{delete/{id}(id=${user.id})}" methods="delete">Удалить</a></td>
+            </tr>
+            </tbody>
+        </table>
+<!--        <p>User: <span sec:authentication="name">NOT FOUND</span></p>-->
+<!--        <p>Spring Roles: <span sec:authentication="principal.authorities">NOT FOUND</span></p>-->
+    </div>
+    <p><a href="/user-create">Добавить пользователя</a></p>
+
+    <p sec:authorize="isAuthenticated()" class="nav-item"></p>
+    <form class="link" th:action="@{/logout}" method="post">
+    <input class="link" type="submit" value="Выйти"/></form>
+</div>
+</body>
+</html>

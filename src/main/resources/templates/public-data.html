@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Текущая дата и время</title>
+</head>
+<body>
+    <h1><u>Текущая дата и время на сервере</u></h1>
+    <p>Текущая дата: <span th:text="${date}"></span></p>
+    <p>Текущее время: <span th:text="${time}"></span></p>
+    <ul class="nav-links">
+        <li sec:authorize="hasRole('ADMIN')" class="nav-item"><a href="/private-data">Управление пользователями</a></li>
+        <li sec:authorize="!isAuthenticated()" class="nav-item"><a href="/">Войти</a></li>
+        <li sec:authorize="isAuthenticated()" class="nav-item">
+            <form class="link" th:action="@{/logout}" method="post">
+                <input class="link" type="submit" value="Выйти"/>
+            </form></li>
+    </ul>
+<!--    <p sec:authorize="isAuthenticated()" class="nav-item"></p>-->
+<!--    <form class="link" th:action="@{/logout}" method="post">-->
+<!--        <input class="link" type="submit" value="Logout"/></form>-->
+
+</body>
+</html>
