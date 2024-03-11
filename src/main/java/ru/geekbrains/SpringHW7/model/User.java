@@ -18,4 +18,6 @@ public class User {
     Long age;
     @Column(nullable = false)
     String city;
+
+
 }

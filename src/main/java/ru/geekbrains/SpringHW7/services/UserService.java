@@ -11,6 +11,8 @@ import java.util.List;
 @AllArgsConstructor
 public class UserService {
 
+    private final UserFileSaver userFileSaver;
+
     private final UserRepository userRepository;
 
     // Получение списка всех пользователей
@@ -35,6 +37,7 @@ public class UserService {
 
     //Обновление пользователя
     public User updateUser(User user){
+        userFileSaver.writeToFile(user.getName()+"_"+user.getCity(),user);
         userRepository.save(user);
         return user;
     }
